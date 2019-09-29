@@ -8,9 +8,13 @@ from django.template.loader import render_to_string
 
 # Create your views here.
 def signupView(request):
+    if 'user_id' in request.session.keys():
+        return redirect('main_index')
     return render(request, 'signup/signup.html')
 
 def email(request):
+    if 'user_id' in request.session.keys():
+        return redirect('main_index')
     user_name = request.POST['signupName']
     user_id = request.POST['signupEmail']
     user_pw = request.POST['signupPW']
@@ -51,9 +55,13 @@ def email(request):
         return render(request, 'main/error.html', { "message": message })
 
 def verifyView(request):
+    if 'user_id' in request.session.keys():
+        return redirect('main_index')
     return render(request, 'signup/verifyCode.html')
 
 def verify(request):
+    if 'user_id' in request.session.keys():
+        return redirect('main_index')
     user_code = request.POST['verifyCode']
     session_code = request.session['code']
     if user_code == str(session_code):

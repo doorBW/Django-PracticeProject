@@ -10,9 +10,13 @@ def index(request):
     return render(request,'main/index.html')
 
 def loginView(request):
+    if 'user_id' in request.session.keys():
+        return redirect('main_index')
     return render(request, 'main/login.html')
 
 def login(request):
+    if 'user_id' in request.session.keys():
+        return redirect('main_index')
     user_input_id = request.POST['loginEmail']
     user_input_pw = request.POST['loginPW']
     try:
@@ -34,3 +38,9 @@ def login(request):
     except:
         message = '알 수 없는 오류가 발생하였습니다.'
         return render(request, 'main/error.html', { "message": message })
+
+def logout(request):
+    del request.seesion['user_id']
+    del request.seesion['user_name']
+    return redirect('main_loginView')
+    
