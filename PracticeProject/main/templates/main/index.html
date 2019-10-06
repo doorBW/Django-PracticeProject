@@ -38,10 +38,14 @@
             </div>
         </div>
         <div class="content">
-            <h3>업로드된 파일 목록 <small><a href="">파일 업로드 하기</a><small></h3>
+            <h3>업로드된 파일 목록 <small><a href="/upload/fileView/">파일 업로드 하기</a><small></h3>
             <div class="fileListDIv">
                 <ul>
-                    <li class="fileName"> File Name <small style="font-size:12px; margin-left:5px;">(2019/09/19 17:31:23)<small></span></li>
+                    {% for document in documents %}
+                    <a href='download/?path={{ document.file_path.path }}'>
+                        <li class="fileName"> {{ document.file_name }} <small style="font-size:12px; margin-left:5px;">( {{ document.create_time }} )<small></span></li>
+                    </a>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
